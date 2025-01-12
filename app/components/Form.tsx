@@ -1,4 +1,3 @@
-// components/Form.tsx
 import { useForm } from "react-hook-form";
 import { FormData, UserSchema, ValidFieldNames } from "./types";
 import FormField from "./FormField";
@@ -24,7 +23,7 @@ function Form() {
       // Define a mapping between server-side field names and client-side names
       const fieldErrorMapping: Record<string, ValidFieldNames> = {
         FirstName: "FirstName",
-        LastName: "lastName",
+        lastName: "lastName",
         email: "email",
         githubUrl: "githubUrl",
         yearsOfExperience: "yearsOfExperience",
@@ -50,6 +49,16 @@ function Form() {
     }
   };
 
+  const fields: { label: string; name: ValidFieldNames; type: string; placeholder: string }[] = [
+    { label: "First Name", name: "FirstName", type: "text", placeholder: "Your First Name" },
+    { label: "Last Name", name: "lastName", type: "text", placeholder: "Your Last Name" },
+    { label: "E-mail", name: "email", type: "email", placeholder: "Email" },
+    { label: "GitHub URL", name: "githubUrl", type: "text", placeholder: "https://github.com/YourIdName" },
+    { label: "Years of Experience", name: "yearsOfExperience", type: "number", placeholder: "Years of Experience (1 - 10)" },
+    { label: "Password", name: "password", type: "password", placeholder: "Password" },
+    { label: "Confirm Password", name: "confirmPassword", type: "password", placeholder: "Confirm Password" },
+  ];
+
   return (
     <motion.form
       onSubmit={handleSubmit(onSubmit)}
@@ -67,15 +76,7 @@ function Form() {
         <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Zod & React-Hook-Form</h1>
 
         <div className="space-y-4">
-          {[
-            { label: "First Name", name: "FirstName", type: "text", placeholder: "Your First Name" },
-            { label: "Last Name", name: "lastName", type: "text", placeholder: "Your Last Name" },
-            { label: "E-mail", name: "email", type: "email", placeholder: "Email" },
-            { label: "GitHub URL", name: "githubUrl", type: "text", placeholder: "https://github.com/YourIdName" },
-            { label: "Years of Experience", name: "yearsOfExperience", type: "number", placeholder: "Years of Experience (1 - 10)" },
-            { label: "Password", name: "password", type: "password", placeholder: "Password" },
-            { label: "Confirm Password", name: "confirmPassword", type: "password", placeholder: "Confirm Password" },
-          ].map((field, index) => (
+          {fields.map((field, index) => (
             <motion.div
               key={field.name}
               initial={{ opacity: 0, x: -50 }}
@@ -87,9 +88,9 @@ function Form() {
                 className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                 type={field.type}
                 placeholder={field.placeholder}
-                name={field.name}
+                name={field.name} // Correctly typed as ValidFieldNames
                 register={register}
-                error={errors[field.name as keyof typeof errors]}
+                error={errors[field.name]} // Access error for the specific field
                 valueAsNumber={field.type === "number"}
               />
             </motion.div>
