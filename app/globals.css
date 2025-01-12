@@ -18,26 +18,27 @@
 
 h1 {
   font-size: 28px;
-  font-weight: bol;
+  font-weight: bold; /* Fixed typo */
 }
 
 body {
   color: rgb(var(--background-start-rgb));
-  background: rgba(224, 224, 247, 0.751);
+  background: rgba(138, 133, 133, 0.751);
 }
 
 input,
 select {
-  background-color: rgba(0, 26, 255, 0.217);
-  border: 1px solid rgb(21, 0, 255);
+  background-color: rgb(130, 137, 207); /* Ensure a consistent background */
+  border: 1px solid rgb(0, 0, 0);
   border-radius: 10px;
   padding: 10px;
   margin: 5px;
   outline: none;
 }
+
 input::placeholder,
 select::placeholder {
-color: black;
+  color: rgb(0, 0, 0);
 }
 
 .submit-button {
@@ -46,7 +47,7 @@ color: black;
   padding: 10px;
   margin-top: 10px;
   font-weight: bold;
-  color: rgb(var(--foreground-rgb)) ;
+  color: rgb(var(--foreground-rgb));
 }
 
 .submit-button:hover {
@@ -54,7 +55,16 @@ color: black;
 }
 
 .error-message {
-  color: rgb(238, 80, 80);
+  color: rgb(255, 0, 0);
   font-size: 10px;
   margin-left: 10px;
+}
+
+/* Autofill Fix */
+input:-webkit-autofill {
+  background-color: rgba(255, 255, 255, 1) !important; /* Match input background */
+  border: 1px solid rgb(0, 0, 0) !important; /* Match input border */
+  color: rgb(0, 0, 0) !important; /* Match input text color */
+  -webkit-box-shadow: 0 0 0 1000px rgba(255, 255, 255, 1) inset !important; /* Match input background */
+  transition: background-color 5000s ease-in-out 0s; /* Prevent sudden changes */
 }
